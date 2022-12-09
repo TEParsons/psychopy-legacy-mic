@@ -18,11 +18,22 @@ time.
 """
 
 from .microphone import (
+    haveMic,
+    FLAC_PATH,
     AudioCapture,
     AdvAudioCapture,
+    getMarkerOnset,
+    readWavFile,
+    getDftBins,
+    getDft,
+    getRMSBins,
+    getRMS,
+    SoundFormatNotSupported,
+    SoundFileError,
+    MicrophoneError,
     Speech2Text,
     BatchSpeech2Text,
-    SoundFileError,
-    SoundFormatNotSupported,
-    FLAC_PATH,
-    haveMic)
+    flac2wav,
+    wav2flac,
+    switchOn,
+    switchOff)
