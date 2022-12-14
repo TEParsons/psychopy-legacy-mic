@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "psychopy-legacy-mic"
-version = "0.0.1"
+version = "0.0.1.post1"
 description = "Extension that enables audio capture and analysis using Pyo."
 readme = "README.md"
 requires-python = ">= 3.7"

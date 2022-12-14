@@ -17,6 +17,8 @@ time.
 
 """
 
+__version__ = '0.0.1'
+
 from .microphone import (
     haveMic,
     FLAC_PATH,
@@ -36,4 +38,5 @@ from .microphone import (
     flac2wav,
     wav2flac,
     switchOn,
-    switchOff)
+    switchOff,
+    _getFlacPath)
