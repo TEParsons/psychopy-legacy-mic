@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>microphone &#8212; PsychoPy Example Plugin 0.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=536c50fe" />
+    <link rel="stylesheet" type="text/css" href="../../_static/psychopy.css?v=b9f4e6dd" />
+    <script src="../../_static/documentation_options.js?v=d20be8f5"></script>
+    <script src="../../_static/doctools.js?v=b682be12"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script src="../../_static/js/jquery-fix.js"></script>
+    <script src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="prev" title="Welcome to psychopy-legacy-mic’s documentation!" href="../../" />
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-4089651-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-4089651-2');
+    </script>
+
+    <!-- Matomo -->
+    <script>
+      var _paq = window._paq = window._paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+      _paq.push(["setCookieDomain", "*.psychopy.org"]);
+      _paq.push(["setDomains", ["*.psychopy.org","*.discourse.psychopy.org"]]);
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="//analytics.opensciencetools.org/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '3']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <noscript><p><img src="//analytics.opensciencetools.org/matomo.php?idsite=3&amp;rec=1" style="border:0;" alt="" /></p></noscript>
+    <!-- End Matomo Code -->
+
+
+  </head><body>
+
+<!-- The social media icon bar -->
+<div class="social-bar">
+  <a href="" class="github">
+    <i class="fab fa-github"></i></a>
+</div>
+
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand small-logo" href="../../">
+          <img src="../../_static/Psychopy Plugin Header Small.png" alt="PsychoPy Logo">
+        </a>
+        <a class="navbar-brand large-logo" href="../../">
+          <img src="../../_static/Psychopy Plugin Header Large.png" alt="PsychoPy Logo">
+        </a>
+        <!-- <span class="navbar-text navbar-version pull-right"><b></b></span> -->
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse w-100 pull-right">
+          <ul class="nav navbar-nav ml-auto">
+            <li><a href="../../">Home</a></li>
+            <li><a href="../../download/">Install</a></li>
+            
+            <li><a href="https://plugins.psychopy.org/directory.html" class="return-btn">plugins.psychopy.org</a></li>
+            
+              <!-- <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Added content for Coder</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">microphone</a></li>
+</ul>
+</ul>
+</li> -->
+              
+            
+            <!--  -->
+            
+            
+          </ul>
+
+            <!-- 
+              
+<form class="navbar-form navbar-right" action="../../search/" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+             -->
+
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 content">
+      
+  <section id="microphone">
+<h1>microphone<a class="headerlink" href="#microphone" title="Link to this heading">¶</a></h1>
+<p>To import ExampleDevice, you can either use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">psychopy_legacy_mic</span> <span class="kn">import</span> <span class="n">microphone</span>
+</pre></div>
+</div>
+<p>or, any time after <cite>psychopy.plugins.activatePlugins</cite> has been called:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">psychopy</span> <span class="kn">import</span> <span class="n">microphone</span>
+</pre></div>
+</div>
+<p id="module-psychopy_legacy_mic.microphone">Audio capture and analysis using pyo</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AdvAudioCapture">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">psychopy_legacy_mic.microphone.</span></span><span class="sig-name descname"><span class="pre">AdvAudioCapture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'advMic'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saveDir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampletype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chnl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stereo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoLog</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#AdvAudioCapture"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.AdvAudioCapture" title="Link to this definition">¶</a></dt>
+<dd><p>Class extends AudioCapture, plays marker sound as a “start” indicator.</p>
+<p>Has method for retrieving the marker onset time from the file, to allow
+calculation of vocal RT (or other sound-based RT).</p>
+<p>See Coder demo &gt; input &gt; latencyFromTone.py</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AdvAudioCapture.compress">
+<span class="sig-name descname"><span class="pre">compress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#AdvAudioCapture.compress"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.AdvAudioCapture.compress" title="Link to this definition">¶</a></dt>
+<dd><p>Compress using FLAC (lossless compression).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AdvAudioCapture.getLoudness">
+<span class="sig-name descname"><span class="pre">getLoudness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#AdvAudioCapture.getLoudness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.AdvAudioCapture.getLoudness" title="Link to this definition">¶</a></dt>
+<dd><p>Return the RMS loudness of the saved recording.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AdvAudioCapture.getMarkerInfo">
+<span class="sig-name descname"><span class="pre">getMarkerInfo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#AdvAudioCapture.getMarkerInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.AdvAudioCapture.getMarkerInfo" title="Link to this definition">¶</a></dt>
+<dd><p>Returns (hz, duration, volume) of the marker sound.
+Custom markers always return 0 hz (regardless of the sound).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AdvAudioCapture.getMarkerOnset">
+<span class="sig-name descname"><span class="pre">getMarkerOnset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#AdvAudioCapture.getMarkerOnset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.AdvAudioCapture.getMarkerOnset" title="Link to this definition">¶</a></dt>
+<dd><p>Return (onset, offset) time of the first marker within the
+first <cite>secs</cite> of the saved recording.</p>
+<p>Has approx ~1.33ms resolution at 48000Hz, chunk=64. Larger chunks
+can speed up processing times, at a sacrifice of some resolution,
+e.g., to pre-process long recordings with multiple markers.</p>
+<p>If given a filename, it will first set that file as the one to
+work with, and then try to detect the onset marker.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AdvAudioCapture.playMarker">
+<span class="sig-name descname"><span class="pre">playMarker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#AdvAudioCapture.playMarker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.AdvAudioCapture.playMarker" title="Link to this definition">¶</a></dt>
+<dd><p>Plays the current marker sound. This is automatically called at the
+start of recording, but can be called anytime to insert a marker.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AdvAudioCapture.playback">
+<span class="sig-name descname"><span class="pre">playback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.AdvAudioCapture.playback" title="Link to this definition">¶</a></dt>
+<dd><p>Plays the saved .wav file, as just recorded or resampled. Execution
+blocks by default, but can return immediately with <cite>block=False</cite>.</p>
+<p><cite>loops</cite> : number of extra repetitions; 0 = play once</p>
+<p><cite>stop</cite> : True = immediately stop ongoing playback (if there is one),
+and return</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AdvAudioCapture.record">
+<span class="sig-name descname"><span class="pre">record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#AdvAudioCapture.record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.AdvAudioCapture.record" title="Link to this definition">¶</a></dt>
+<dd><p>Starts recording and plays an onset marker tone just prior
+to returning. The idea is that the start of the tone in the
+recording indicates when this method returned, to enable you to sync
+a known recording onset with other events.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AdvAudioCapture.resample">
+<span class="sig-name descname"><span class="pre">resample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newRate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.AdvAudioCapture.resample" title="Link to this definition">¶</a></dt>
+<dd><p>Re-sample the saved file to a new rate, return the full path.</p>
+<p>Can take several visual frames to resample a 2s recording.</p>
+<p>The default values for resample() are for Google-speech, keeping the
+original (presumably recorded at 48kHz) to archive.
+A warning is generated if the new rate not an integer factor /
+multiple of the old rate.</p>
+<p>To control anti-aliasing, use pyo.downsamp() or upsamp() directly.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AdvAudioCapture.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.AdvAudioCapture.reset" title="Link to this definition">¶</a></dt>
+<dd><p>Restores to fresh state, ready to record again</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AdvAudioCapture.setFile">
+<span class="sig-name descname"><span class="pre">setFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#AdvAudioCapture.setFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.AdvAudioCapture.setFile" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the name of the file to work with.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AdvAudioCapture.setMarker">
+<span class="sig-name descname"><span class="pre">setMarker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">19000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.015</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volume</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.03</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#AdvAudioCapture.setMarker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.AdvAudioCapture.setMarker" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the onset marker, where <cite>tone</cite> is either in hz or a custom
+sound.</p>
+<p>The default tone (19000 Hz) is recommended for auto-detection,
+as being easier to isolate from speech sounds (and so reliable
+to detect). The default duration and volume are appropriate for
+a quiet setting such as a lab testing room. A louder volume, longer
+duration, or both may give better results when recording loud sounds
+or in noisy environments, and will be auto-detected just fine
+(even more easily). If the hardware microphone in use is not
+physically near the speaker hardware, a louder volume is likely
+to be required.</p>
+<p>Custom sounds cannot be auto-detected, but are supported anyway for
+presentation purposes. E.g., a recording of someone saying “go” or
+“stop” could be passed as the onset marker.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AdvAudioCapture.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.AdvAudioCapture.stop" title="Link to this definition">¶</a></dt>
+<dd><p>Interrupt a recording that is in progress; close &amp; keep the file.</p>
+<p>Ends the recording before the duration that was initially specified.
+The same file name is retained, with the same onset time but a
+shorter duration.</p>
+<p>The same recording cannot be resumed after a stop (it is not a pause),
+but you can start a new one.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AdvAudioCapture.uncompress">
+<span class="sig-name descname"><span class="pre">uncompress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#AdvAudioCapture.uncompress"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.AdvAudioCapture.uncompress" title="Link to this definition">¶</a></dt>
+<dd><p>Uncompress from FLAC to .wav format.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AudioCapture">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">psychopy_legacy_mic.microphone.</span></span><span class="sig-name descname"><span class="pre">AudioCapture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mic'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saveDir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampletype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chnl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stereo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoLog</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#AudioCapture"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.AudioCapture" title="Link to this definition">¶</a></dt>
+<dd><p>Capture sound sample from the default sound input, and save to a file.</p>
+<p>Untested whether you can have two recordings going on simultaneously.</p>
+<p><strong>Examples</strong>
+.. code-block:: python</p>
+<blockquote>
+<div><p>from psychopy import microphone
+from psychopy import event, visual  # for key events</p>
+<p>microphone.switchOn(sampleRate=16000)  # do once</p>
+<p># Record for 1.000 seconds, save to mic.savedFile
+mic = microphone.AudioCapture()
+mic.record(1)
+mic.playback()</p>
+<p># Resample, creates a new file discards orig
+mic.resample(48000, keep=False)</p>
+<p># Record new file for 60 sec or until key ‘q’
+w = visual.Window()  # needed for key-events
+mic.reset()
+mic.record(60, block=False)
+while mic.recorder.running:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>if ‘q’ in event.getKeys():</dt><dd><p>mic.stop()</p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<p>Also see Builder Demo “voiceCapture”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Jeremy R. Gray, March 2012</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AudioCapture.playback">
+<span class="sig-name descname"><span class="pre">playback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#AudioCapture.playback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.AudioCapture.playback" title="Link to this definition">¶</a></dt>
+<dd><p>Plays the saved .wav file, as just recorded or resampled. Execution
+blocks by default, but can return immediately with <cite>block=False</cite>.</p>
+<p><cite>loops</cite> : number of extra repetitions; 0 = play once</p>
+<p><cite>stop</cite> : True = immediately stop ongoing playback (if there is one),
+and return</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AudioCapture.record">
+<span class="sig-name descname"><span class="pre">record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#AudioCapture.record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.AudioCapture.record" title="Link to this definition">¶</a></dt>
+<dd><p>Capture sound input for duration &lt;sec&gt;, save to a file.</p>
+<p>Return the path/name to the new file. Uses onset time (epoch) as
+a meaningful identifier for filename and log.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AudioCapture.resample">
+<span class="sig-name descname"><span class="pre">resample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newRate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#AudioCapture.resample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.AudioCapture.resample" title="Link to this definition">¶</a></dt>
+<dd><p>Re-sample the saved file to a new rate, return the full path.</p>
+<p>Can take several visual frames to resample a 2s recording.</p>
+<p>The default values for resample() are for Google-speech, keeping the
+original (presumably recorded at 48kHz) to archive.
+A warning is generated if the new rate not an integer factor /
+multiple of the old rate.</p>
+<p>To control anti-aliasing, use pyo.downsamp() or upsamp() directly.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AudioCapture.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#AudioCapture.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.AudioCapture.reset" title="Link to this definition">¶</a></dt>
+<dd><p>Restores to fresh state, ready to record again</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.AudioCapture.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#AudioCapture.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.AudioCapture.stop" title="Link to this definition">¶</a></dt>
+<dd><p>Interrupt a recording that is in progress; close &amp; keep the file.</p>
+<p>Ends the recording before the duration that was initially specified.
+The same file name is retained, with the same onset time but a
+shorter duration.</p>
+<p>The same recording cannot be resumed after a stop (it is not a pause),
+but you can start a new one.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.BatchSpeech2Text">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">psychopy_legacy_mic.microphone.</span></span><span class="sig-name descname"><span class="pre">BatchSpeech2Text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#BatchSpeech2Text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.BatchSpeech2Text" title="Link to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.BatchSpeech2Text.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.BatchSpeech2Text.append" title="Link to this definition">¶</a></dt>
+<dd><p>Append object to the end of the list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.BatchSpeech2Text.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.BatchSpeech2Text.clear" title="Link to this definition">¶</a></dt>
+<dd><p>Remove all items from list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.BatchSpeech2Text.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.BatchSpeech2Text.copy" title="Link to this definition">¶</a></dt>
+<dd><p>Return a shallow copy of the list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.BatchSpeech2Text.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.BatchSpeech2Text.count" title="Link to this definition">¶</a></dt>
+<dd><p>Return number of occurrences of value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.BatchSpeech2Text.extend">
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.BatchSpeech2Text.extend" title="Link to this definition">¶</a></dt>
+<dd><p>Extend list by appending elements from the iterable.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.BatchSpeech2Text.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9223372036854775807</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.BatchSpeech2Text.index" title="Link to this definition">¶</a></dt>
+<dd><p>Return first index of value.</p>
+<p>Raises ValueError if the value is not present.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.BatchSpeech2Text.insert">
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.BatchSpeech2Text.insert" title="Link to this definition">¶</a></dt>
+<dd><p>Insert object before index.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.BatchSpeech2Text.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.BatchSpeech2Text.pop" title="Link to this definition">¶</a></dt>
+<dd><p>Remove and return item at index (default last).</p>
+<p>Raises IndexError if list is empty or index is out of range.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.BatchSpeech2Text.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.BatchSpeech2Text.remove" title="Link to this definition">¶</a></dt>
+<dd><p>Remove first occurrence of value.</p>
+<p>Raises ValueError if the value is not present.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.BatchSpeech2Text.reverse">
+<span class="sig-name descname"><span class="pre">reverse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.BatchSpeech2Text.reverse" title="Link to this definition">¶</a></dt>
+<dd><p>Reverse <em>IN PLACE</em>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.BatchSpeech2Text.sort">
+<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.BatchSpeech2Text.sort" title="Link to this definition">¶</a></dt>
+<dd><p>Sort the list in ascending order and return None.</p>
+<p>The sort is in-place (i.e. the list itself is modified) and stable (i.e. the
+order of two equal elements is maintained).</p>
+<p>If a key function is given, apply it once to each list item and sort them,
+ascending or descending, according to their function values.</p>
+<p>The reverse flag can be set to sort in descending order.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.MicrophoneError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">psychopy_legacy_mic.microphone.</span></span><span class="sig-name descname"><span class="pre">MicrophoneError</span></span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#MicrophoneError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.MicrophoneError" title="Link to this definition">¶</a></dt>
+<dd><p>Class to report a microphone error</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.MicrophoneError.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#psychopy_legacy_mic.microphone.MicrophoneError.args" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.MicrophoneError.with_traceback">
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.MicrophoneError.with_traceback" title="Link to this definition">¶</a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.SoundFileError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">psychopy_legacy_mic.microphone.</span></span><span class="sig-name descname"><span class="pre">SoundFileError</span></span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#SoundFileError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.SoundFileError" title="Link to this definition">¶</a></dt>
+<dd><p>Class to report sound file failed to load</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.SoundFileError.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#psychopy_legacy_mic.microphone.SoundFileError.args" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.SoundFileError.with_traceback">
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.SoundFileError.with_traceback" title="Link to this definition">¶</a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.SoundFormatNotSupported">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">psychopy_legacy_mic.microphone.</span></span><span class="sig-name descname"><span class="pre">SoundFormatNotSupported</span></span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#SoundFormatNotSupported"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.SoundFormatNotSupported" title="Link to this definition">¶</a></dt>
+<dd><p>Class to report an unsupported sound format</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.SoundFormatNotSupported.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#psychopy_legacy_mic.microphone.SoundFormatNotSupported.args" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.SoundFormatNotSupported.with_traceback">
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#psychopy_legacy_mic.microphone.SoundFormatNotSupported.with_traceback" title="Link to this definition">¶</a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.Speech2Text">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">psychopy_legacy_mic.microphone.</span></span><span class="sig-name descname"><span class="pre">Speech2Text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'en-US'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samplingrate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pro_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#Speech2Text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.Speech2Text" title="Link to this definition">¶</a></dt>
+<dd><p>Class for speech-recognition (voice to text), using Google’s public API.</p>
+<p>Google’s speech API is currently free to use, and seems to work well.
+Intended for within-experiment processing (near real-time, 1-2s delayed), in which
+it’s often important to skip a slow or failed response, and not wait a long time;
+<cite>BatchSpeech2Text()</cite> reverses these priorities.</p>
+<p>It is possible (and
+perhaps even likely) that Google will start charging for usage. In addition, they
+can change the interface at any time, including in the middle of an experiment.
+(If so, please post to the user list and we’ll try to develop a fix, but
+there could still be some downtime.) Presumably, confidential
+or otherwise sensitive voice data should not be sent to google.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Note<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Requires that flac is installed (free download from  <a class="reference external" href="https://xiph.org/flac/download.html">https://xiph.org/flac/download.html</a>).
+If you download and install flac, but get an error that flac is missing,
+try setting the full path to flac in preferences -&gt; general -&gt; flac.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<ol class="loweralpha">
+<li><p>Always import and make an object; no data are available yet:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microphone</span> <span class="kn">import</span> <span class="n">Speech2Text</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">Speech2Text</span><span class="p">(</span><span class="s1">&#39;speech_clip.wav&#39;</span><span class="p">)</span> <span class="c1"># set-up only</span>
+</pre></div>
+</div>
+</li>
+<li><p>Then, either: Initiate a query and wait for response from google (or until the time-out limit is reached). This is “blocking” mode, and is the easiest to do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">resp</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">getResponse</span><span class="p">()</span> <span class="c1"># execution blocks here</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">word</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">confidence</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Or instead (advanced usage): Initiate a query, but do not wait for a response (“thread” mode: no blocking, no timeout, more control). <cite>running</cite> will change to False when a response is received (or hang indefinitely if something goes wrong–so you might want to implement a time-out as well):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">resp</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">getThread</span><span class="p">()</span> <span class="c1"># returns immediately</span>
+<span class="k">while</span> <span class="n">resp</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,)</span> <span class="c1"># displays dots while waiting</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+    <span class="n">core</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">words</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Options: Set-up with a different language for the same speech clip; you’ll get a different response (possibly having UTF-8 characters):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gs</span> <span class="o">=</span> <span class="n">Speech2Text</span><span class="p">(</span><span class="s1">&#39;speech_clip.wav&#39;</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s1">&#39;ja-JP&#39;</span><span class="p">)</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">getResponse</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Example<span class="colon">:</span></dt>
+<dd class="field-odd"><p>See Coder demos / input / speech_recognition.py</p>
+</dd>
+<dt class="field-even">Known limitations<span class="colon">:</span></dt>
+<dd class="field-even"><p>Availability is subject to the whims of google. Any changes google
+makes along the way could either cause complete failure (disruptive),
+or could cause slightly different results to be obtained (without it being
+readily obvious that something had changed). For this reason,
+it’s probably a good idea to re-run speech samples through <cite>Speech2Text</cite> at the end of
+a study; see <cite>BatchSpeech2Text()</cite>.</p>
+</dd>
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Jeremy R. Gray, with thanks to Lefteris Zafiris for his help
+and excellent command-line perl script at <a class="reference external" href="https://github.com/zaf/asterisk-speech-recog">https://github.com/zaf/asterisk-speech-recog</a> (GPLv2)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.Speech2Text.getResponse">
+<span class="sig-name descname"><span class="pre">getResponse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#Speech2Text.getResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.Speech2Text.getResponse" title="Link to this definition">¶</a></dt>
+<dd><p>Calls <cite>getThread()</cite>, and then polls the thread until there’s a response.</p>
+<p>Will time-out if no response comes within <cite>timeout</cite> seconds. Returns an
+object having the speech data in its namespace. If there’s no match,
+generally the values will be equivalent to <cite>None</cite> (e.g., an empty string).</p>
+<p>If you do <cite>resp = getResponse()</cite>, you’ll be able to access the data
+in several ways:</p>
+<blockquote>
+<div><dl class="simple">
+<dt><cite>resp.word</cite> :</dt><dd><p>the best match, i.e., the most probably word, or <cite>None</cite></p>
+</dd>
+<dt><cite>resp.confidence</cite> :</dt><dd><p>Google’s confidence about <cite>.word</cite>, ranging 0 to 1</p>
+</dd>
+<dt><cite>resp.words</cite> :</dt><dd><p>tuple of up to 5 guesses; so <cite>.word</cite> == <cite>.words[0]</cite></p>
+</dd>
+<dt><cite>resp.raw</cite> :</dt><dd><p>the raw response from Google (just a string)</p>
+</dd>
+<dt><cite>resp.json</cite> :</dt><dd><p>a parsed version of raw, from <cite>json.load(raw)</cite></p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.Speech2Text.getThread">
+<span class="sig-name descname"><span class="pre">getThread</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#Speech2Text.getThread"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.Speech2Text.getThread" title="Link to this definition">¶</a></dt>
+<dd><p>Send a query to Google using a new thread, no blocking or timeout.</p>
+<p>Returns a thread which will <strong>eventually</strong> (not immediately) have the speech
+data in its namespace; see getResponse. In theory, you could have several
+threads going simultaneously (almost all the time is spent waiting for a
+response), rather than doing them sequentially (not tested).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.flac2wav">
+<span class="sig-prename descclassname"><span class="pre">psychopy_legacy_mic.microphone.</span></span><span class="sig-name descname"><span class="pre">flac2wav</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#flac2wav"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.flac2wav" title="Link to this definition">¶</a></dt>
+<dd><p>Uncompress: convert .flac file (on disk) to .wav format (new file).</p>
+<p>If <cite>path</cite> is a directory name, convert all .flac files in the directory.</p>
+<p><cite>keep</cite> to retain the original .flac file(s), default <cite>True</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.getDft">
+<span class="sig-prename descclassname"><span class="pre">psychopy_legacy_mic.microphone.</span></span><span class="sig-name descname"><span class="pre">getDft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampleRate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wantPhase</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#getDft"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.getDft" title="Link to this definition">¶</a></dt>
+<dd><p>Compute and return magnitudes of numpy.fft.fft() of the data.</p>
+<p>If given a sample rate (samples/sec), will return (magn, freq).
+If wantPhase is True, phase in radians is also returned
+(magn, freq, phase). data should have power-of-2 samples,
+or will be truncated.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.getDftBins">
+<span class="sig-prename descclassname"><span class="pre">psychopy_legacy_mic.microphone.</span></span><span class="sig-name descname"><span class="pre">getDftBins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampleRate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#getDftBins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.getDftBins" title="Link to this definition">¶</a></dt>
+<dd><p>Return DFT (discrete Fourier transform) of <code class="docutils literal notranslate"><span class="pre">data</span></code>, doing so in
+time-domain bins, each of size <code class="docutils literal notranslate"><span class="pre">chunk</span></code> samples.</p>
+<p>e.g., for getting FFT magnitudes in a ms-by-ms manner.</p>
+<p>If given a sampleRate, the data are bandpass filtered (low, high).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.getMarkerOnset">
+<span class="sig-prename descclassname"><span class="pre">psychopy_legacy_mic.microphone.</span></span><span class="sig-name descname"><span class="pre">getMarkerOnset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_hz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">19000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.015</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#getMarkerOnset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.getMarkerOnset" title="Link to this definition">¶</a></dt>
+<dd><p>Returns marker sound (onset, offset) in sec, as read from filename.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.getRMS">
+<span class="sig-prename descclassname"><span class="pre">psychopy_legacy_mic.microphone.</span></span><span class="sig-name descname"><span class="pre">getRMS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#getRMS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.getRMS" title="Link to this definition">¶</a></dt>
+<dd><p>Compute and return the audio power (“loudness”).</p>
+<p>Uses numpy.std() as RMS. std() is same as RMS if the mean is 0,
+and .wav data should have a mean of 0.
+Returns an array if given stereo data (RMS computed within-channel).</p>
+<p><cite>data</cite> can be an array (1D, 2D) or filename; .wav format only.
+data from .wav files will be normalized to -1..+1 before RMS is computed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.getRMSBins">
+<span class="sig-prename descclassname"><span class="pre">psychopy_legacy_mic.microphone.</span></span><span class="sig-name descname"><span class="pre">getRMSBins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#getRMSBins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.getRMSBins" title="Link to this definition">¶</a></dt>
+<dd><p>Return RMS (loudness) in bins of <code class="docutils literal notranslate"><span class="pre">chunk</span></code> samples</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.readWavFile">
+<span class="sig-prename descclassname"><span class="pre">psychopy_legacy_mic.microphone.</span></span><span class="sig-name descname"><span class="pre">readWavFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#readWavFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.readWavFile" title="Link to this definition">¶</a></dt>
+<dd><p>Return (data, sampleRate) as read from a wav file, expects int16 data.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.switchOff">
+<span class="sig-prename descclassname"><span class="pre">psychopy_legacy_mic.microphone.</span></span><span class="sig-name descname"><span class="pre">switchOff</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#switchOff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.switchOff" title="Link to this definition">¶</a></dt>
+<dd><p>(Not needed as of v1.76.00; kept for backwards compatibility only.)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.switchOn">
+<span class="sig-prename descclassname"><span class="pre">psychopy_legacy_mic.microphone.</span></span><span class="sig-name descname"><span class="pre">switchOn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sampleRate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">48000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputDevice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bufferSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#switchOn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.switchOn" title="Link to this definition">¶</a></dt>
+<dd><p>You need to switch on the microphone before use, which can take
+several seconds. The only time you can specify the sample rate (in Hz)
+is during switchOn().</p>
+<p>Considerations on the default sample rate 48kHz:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DVD</span> <span class="ow">or</span> <span class="n">video</span> <span class="o">=</span> <span class="mi">48</span><span class="p">,</span><span class="mi">000</span>
+<span class="n">CD</span><span class="o">-</span><span class="n">quality</span>   <span class="o">=</span> <span class="mi">44</span><span class="p">,</span><span class="mi">100</span> <span class="o">/</span> <span class="mi">24</span> <span class="n">bit</span>
+<span class="n">human</span> <span class="n">hearing</span><span class="p">:</span> <span class="o">~</span><span class="mi">15</span><span class="p">,</span><span class="mi">000</span> <span class="p">(</span><span class="n">adult</span><span class="p">);</span> <span class="n">children</span> <span class="o">&amp;</span> <span class="n">young</span> <span class="n">adult</span> <span class="n">higher</span>
+<span class="n">human</span> <span class="n">speech</span><span class="p">:</span> <span class="mi">100</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span><span class="mi">000</span> <span class="p">(</span><span class="n">useful</span> <span class="k">for</span> <span class="n">telephone</span><span class="p">:</span> <span class="mi">100</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">Google</span> <span class="n">speech</span> <span class="n">API</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span><span class="mi">000</span> <span class="ow">or</span> <span class="mi">8</span><span class="p">,</span><span class="mi">000</span> <span class="n">only</span>
+<span class="n">Nyquist</span> <span class="n">frequency</span><span class="p">:</span> <span class="n">twice</span> <span class="n">the</span> <span class="n">highest</span> <span class="n">rate</span><span class="p">,</span> <span class="n">good</span> <span class="n">to</span> <span class="n">oversample</span> <span class="n">a</span> <span class="n">bit</span>
+</pre></div>
+</div>
+<p>pyo’s downsamp() function can reduce 48,000 to 16,000 in about 0.02s
+(uses integer steps sizes). So recording at 48kHz will generate
+high-quality archival data, and permit easy downsampling.</p>
+<dl class="simple">
+<dt>outputDevice, bufferSize: set these parameters on the pyoSndServer</dt><dd><p>before booting; None means use pyo’s default values</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psychopy_legacy_mic.microphone.wav2flac">
+<span class="sig-prename descclassname"><span class="pre">psychopy_legacy_mic.microphone.</span></span><span class="sig-name descname"><span class="pre">wav2flac</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/psychopy_legacy_mic/microphone/#wav2flac"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psychopy_legacy_mic.microphone.wav2flac" title="Link to this definition">¶</a></dt>
+<dd><p>Lossless compression: convert .wav file (on disk) to .flac format.</p>
+<p>If <cite>path</cite> is a directory name, convert all .wav files in the directory.</p>
+<p><cite>keep</cite> to retain the original .wav file(s), default <cite>True</cite>.</p>
+<dl class="simple">
+<dt><cite>level</cite> is compression level: 0 is fastest but larger,</dt><dd><p>8 is slightly smaller but much slower.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+      <br/><a href="#" class="pull-right">Back to top</a>
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <span class="pull-right">
+      
+        
+<div id="sourcelink">
+  <a href="https://github.com/psychopy/psychopy/blob/master/docs/source/coder/microphone.rst"
+     rel="nofollow">Source</a>
+</div>
+      <br/>
+
+          &copy; 2002-2018 <a href="https://www.peirce.org.uk/">Jonathan Peirce</a><br/>
+          &copy; 2019 <a href="https://opensciencetools.org/">Open Science Tools Ltd.</a><br/><br/>
+        PsychoPy<sup>®</sup> and Pavlovia<sup>®</sup> are registered trademarks of Open Science Tools Ltd.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.3.7.<br/><br/>
+    </span>
+
+    <a href="http://www.nottingham.ac.uk/"><img src="../../_static/Nottingham Supported.png", alt="Uni of Nottingham" width=250></a>
+  </div>
+
+</footer>
+  </body>
+</html>

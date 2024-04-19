@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>psychopy_legacy_mic.microphone &#8212; PsychoPy Example Plugin 0.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=536c50fe" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/psychopy.css?v=b9f4e6dd" />
+    <script src="../../../_static/documentation_options.js?v=d20be8f5"></script>
+    <script src="../../../_static/doctools.js?v=b682be12"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script src="../../../_static/js/jquery-fix.js"></script>
+    <script src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" />
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-4089651-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-4089651-2');
+    </script>
+
+    <!-- Matomo -->
+    <script>
+      var _paq = window._paq = window._paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+      _paq.push(["setCookieDomain", "*.psychopy.org"]);
+      _paq.push(["setDomains", ["*.psychopy.org","*.discourse.psychopy.org"]]);
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="//analytics.opensciencetools.org/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '3']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <noscript><p><img src="//analytics.opensciencetools.org/matomo.php?idsite=3&amp;rec=1" style="border:0;" alt="" /></p></noscript>
+    <!-- End Matomo Code -->
+
+
+  </head><body>
+
+<!-- The social media icon bar -->
+<div class="social-bar">
+  <a href="" class="github">
+    <i class="fab fa-github"></i></a>
+</div>
+
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand small-logo" href="../../../">
+          <img src="../../../_static/Psychopy Plugin Header Small.png" alt="PsychoPy Logo">
+        </a>
+        <a class="navbar-brand large-logo" href="../../../">
+          <img src="../../../_static/Psychopy Plugin Header Large.png" alt="PsychoPy Logo">
+        </a>
+        <!-- <span class="navbar-text navbar-version pull-right"><b></b></span> -->
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse w-100 pull-right">
+          <ul class="nav navbar-nav ml-auto">
+            <li><a href="../../../">Home</a></li>
+            <li><a href="../../../download/">Install</a></li>
+            
+            <li><a href="https://plugins.psychopy.org/directory.html" class="return-btn">plugins.psychopy.org</a></li>
+            
+              <!-- <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Added content for Coder</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../coder/microphone/">microphone</a></li>
+</ul>
+</ul>
+</li> -->
+              
+            
+            <!--  -->
+            
+            
+          </ul>
+
+            <!-- 
+              
+<form class="navbar-form navbar-right" action="../../../search/" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+             -->
+
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 content">
+      
+  <h1>Source code for psychopy_legacy_mic.microphone</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># Part of the PsychoPy library</span>
+<span class="c1"># Copyright (C) 2002-2018 Jonathan Peirce (C) 2019-2022 Open Science Tools Ltd.</span>
+<span class="c1"># Distributed under the terms of the GNU General Public License (GPL).</span>
+
+<span class="sd">&quot;&quot;&quot;Audio capture and analysis using pyo&quot;&quot;&quot;</span>
+
+<span class="c1"># Author: Jeremy R. Gray, March 2012, March 2013</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">from</span> <span class="nn">psychopy.tools.filetools</span> <span class="kn">import</span> <span class="n">pathToString</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+<span class="kn">import</span> <span class="nn">urllib.error</span>
+<span class="kn">import</span> <span class="nn">urllib.parse</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">wavfile</span>
+<span class="kn">from</span> <span class="nn">psychopy</span> <span class="kn">import</span> <span class="n">core</span><span class="p">,</span> <span class="n">logging</span><span class="p">,</span> <span class="n">web</span><span class="p">,</span> <span class="n">prefs</span>
+<span class="kn">from</span> <span class="nn">psychopy.sound</span> <span class="kn">import</span> <span class="n">backend_pyo</span>
+<span class="kn">from</span> <span class="nn">psychopy.constants</span> <span class="kn">import</span> <span class="n">NOT_STARTED</span><span class="p">,</span> <span class="n">PLAYING</span><span class="p">,</span> <span class="n">PSYCHOPY_USERAGENT</span>
+<span class="c1"># import pyo is done within switchOn to better encapsulate it, can be very</span>
+<span class="c1"># slow and don&#39;t want to delay up to 3 sec when importing microphone</span>
+<span class="c1"># downside: to make this work requires some trickiness with globals</span>
+
+<span class="n">haveMic</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># goes True in switchOn, if can import pyo</span>
+
+<span class="c1"># flac is used for audio compression; user needs to install it</span>
+<span class="n">FLAC_PATH</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># set on first call to _getFlacPath()</span>
+
+
+<div class="viewcode-block" id="AudioCapture">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.AudioCapture">[docs]</a>
+<span class="k">class</span> <span class="nc">AudioCapture</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Capture sound sample from the default sound input, and save to a file.</span>
+
+<span class="sd">    Untested whether you can have two recordings going on simultaneously.</span>
+
+<span class="sd">    **Examples**</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        from psychopy import microphone</span>
+<span class="sd">        from psychopy import event, visual  # for key events</span>
+
+<span class="sd">        microphone.switchOn(sampleRate=16000)  # do once</span>
+
+<span class="sd">        # Record for 1.000 seconds, save to mic.savedFile</span>
+<span class="sd">        mic = microphone.AudioCapture()</span>
+<span class="sd">        mic.record(1)</span>
+<span class="sd">        mic.playback()</span>
+
+<span class="sd">        # Resample, creates a new file discards orig</span>
+<span class="sd">        mic.resample(48000, keep=False)</span>
+
+<span class="sd">        # Record new file for 60 sec or until key &#39;q&#39;</span>
+<span class="sd">        w = visual.Window()  # needed for key-events</span>
+<span class="sd">        mic.reset()</span>
+<span class="sd">        mic.record(60, block=False)</span>
+<span class="sd">        while mic.recorder.running:</span>
+<span class="sd">            if &#39;q&#39; in event.getKeys():</span>
+<span class="sd">                mic.stop()</span>
+
+<span class="sd">    Also see Builder Demo &quot;voiceCapture&quot;.</span>
+
+<span class="sd">    :Author: Jeremy R. Gray, March 2012</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">_Recorder</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Class for internal object to make an audio recording using pyo.</span>
+
+<span class="sd">        Never needed by end-users; only used internally in __init__::</span>
+
+<span class="sd">            self.recorder = _Recorder(None) # instantiate, global</span>
+
+<span class="sd">        Then in record(), do::</span>
+
+<span class="sd">            self.recorder.run(filename, sec)</span>
+
+<span class="sd">        This sets recording parameters, starts recording.</span>
+<span class="sd">        To stop a recording that is in progress, do::</span>
+
+<span class="sd">            self.stop()</span>
+
+<span class="sd">        This class never handles blocking; AudioCapture has to do that.</span>
+
+<span class="sd">        Motivation: Doing pyo Record from within a function worked most of</span>
+<span class="sd">        the time, but failed catastrophically ~1% of time with a bus error.</span>
+<span class="sd">        Seemed to be due to a namespace scoping issue, which using globals</span>
+<span class="sd">        seemed to fix; see pyo mailing list, 7 April 2012. This draws</span>
+<span class="sd">        heavily on Olivier Belanger&#39;s solution.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">sec</span><span class="p">,</span> <span class="n">sampletype</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">buffering</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+                <span class="n">chnl</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">chnls</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">pathToString</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="c1"># chnl from psychopy.backend_pyo.get_input_devices()</span>
+            <span class="n">inputter</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">chnl</span><span class="o">=</span><span class="n">chnl</span><span class="p">,</span> <span class="n">mul</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">recorder</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Record</span><span class="p">(</span><span class="n">inputter</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">chnls</span><span class="o">=</span><span class="n">chnls</span><span class="p">,</span>
+                                       <span class="n">fileformat</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sampletype</span><span class="o">=</span><span class="n">sampletype</span><span class="p">,</span>
+                                       <span class="n">buffering</span><span class="o">=</span><span class="n">buffering</span><span class="p">)</span>
+            <span class="c1"># handles recording offset</span>
+            <span class="n">pyo</span><span class="o">.</span><span class="n">Clean_objects</span><span class="p">(</span><span class="n">sec</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">recorder</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+            <span class="n">threading</span><span class="o">.</span><span class="n">Timer</span><span class="p">(</span><span class="n">sec</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>  <span class="c1"># set running flag False</span>
+
+        <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">recorder</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;mic&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">saveDir</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sampletype</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">buffering</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">chnl</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stereo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoLog</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :Parameters:</span>
+
+<span class="sd">        name :</span>
+<span class="sd">            Stem for the output file, also used in logging.</span>
+<span class="sd">        filename :</span>
+<span class="sd">            optional file name to use; default = &#39;name-onsetTimeEpoch.wav&#39;</span>
+<span class="sd">        saveDir :</span>
+<span class="sd">            Directory to use for output .wav files. If a saveDir is given, it will return &#39;saveDir/file&#39;.</span>
+<span class="sd">            If no saveDir, then return abspath(file)</span>
+<span class="sd">        sampletype : bit depth</span>
+<span class="sd">            pyo recording option: 0=16 bits int, 1=24 bits int; 2=32 bits int</span>
+<span class="sd">        buffering : pyo argument</span>
+<span class="sd">            Controls the buffering argument for pyo if necessary</span>
+<span class="sd">        chnl : int (default=0)</span>
+<span class="sd">            which audio input channel to record (default=0)</span>
+<span class="sd">        stereo : bool or nChannels (default = True)</span>
+<span class="sd">            how many channels to record</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">haveMic</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">MicrophoneError</span><span class="p">(</span><span class="s1">&#39;Need to call microphone.switchOn()&#39;</span>
+                                  <span class="s1">&#39; before AudioCapture or AdvancedCapture&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">saveDir</span> <span class="o">=</span> <span class="n">saveDir</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">pathToString</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wavOutFilename</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wavOutFilename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">saveDir</span><span class="p">,</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.wav&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">saveDir</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wavOutFilename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wavOutFilename</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">saveDir</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">saveDir</span><span class="p">,</span> <span class="mo">0o770</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">onset</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># becomes onset time, used in filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># becomes saved file name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">NOT_STARTED</span>  <span class="c1"># for Builder component</span>
+
+        <span class="c1"># pyo server good to go?</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pyo</span><span class="o">.</span><span class="n">serverCreated</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;pyo server not created&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pyo</span><span class="o">.</span><span class="n">serverBooted</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;pyo server not booted&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">autoLog</span> <span class="o">=</span> <span class="n">autoLog</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loggingId</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loggingId</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">chnl</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">chnl</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">chnl</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;AudioCapture argument &#39;chnl&#39; needs to be an int but received </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">chnl</span><span class="p">)))</span>
+
+        <span class="c1"># the recorder object needs to persist, or else get bus errors:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recorder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Recorder</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sampletype&#39;</span><span class="p">:</span> <span class="n">sampletype</span><span class="p">,</span> <span class="s1">&#39;buffering&#39;</span><span class="p">:</span> <span class="n">buffering</span><span class="p">,</span>
+                        <span class="s1">&#39;chnl&#39;</span><span class="p">:</span> <span class="n">chnl</span><span class="p">,</span> <span class="s1">&#39;chnls&#39;</span><span class="p">:</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">stereo</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)}</span>
+
+<div class="viewcode-block" id="AudioCapture.stop">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.AudioCapture.stop">[docs]</a>
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Interrupt a recording that is in progress; close &amp; keep the file.</span>
+
+<span class="sd">        Ends the recording before the duration that was initially specified.</span>
+<span class="sd">        The same file name is retained, with the same onset time but a</span>
+<span class="sd">        shorter duration.</span>
+
+<span class="sd">        The same recording cannot be resumed after a stop (it is not a pause),</span>
+<span class="sd">        but you can start a new one.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">recorder</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">log</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">autoLog</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: Stop requested, but no record() in progress&#39;</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">loggingId</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset</span>  <span class="c1"># new shorter duration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recorder</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">log</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">autoLog</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: Record stopped early, new duration </span><span class="si">%.3f</span><span class="s1">s&#39;</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loggingId</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="AudioCapture.reset">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.AudioCapture.reset">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Restores to fresh state, ready to record again</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">log</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">autoLog</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: resetting at </span><span class="si">%.3f</span><span class="s1">&#39;</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loggingId</span><span class="p">,</span> <span class="n">core</span><span class="o">.</span><span class="n">getTime</span><span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">saveDir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">saveDir</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AudioCapture.record">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.AudioCapture.record">[docs]</a>
+    <span class="k">def</span> <span class="nf">record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sec</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Capture sound input for duration &lt;sec&gt;, save to a file.</span>
+
+<span class="sd">        Return the path/name to the new file. Uses onset time (epoch) as</span>
+<span class="sd">        a meaningful identifier for filename and log.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_record</span><span class="p">(</span><span class="n">sec</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="n">block</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sec</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">pathToString</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">recorder</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sec</span><span class="p">)</span>
+        <span class="c1"># for duration estimation, high precision:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">onset</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>
+        <span class="c1"># use time for unique log and filename, 1 sec precision</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fileOnset</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">getAbsTime</span><span class="p">()</span>
+        <span class="n">ms</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">core</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">core</span><span class="o">.</span><span class="n">getTime</span><span class="p">()))</span>
+        <span class="k">if</span> <span class="n">log</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">autoLog</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: Record: onset </span><span class="si">%d</span><span class="s1">, capture </span><span class="si">%.3f</span><span class="s1">s&#39;</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loggingId</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fileOnset</span><span class="p">,</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="n">onsettime</span> <span class="o">=</span> <span class="s1">&#39;-</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">fileOnset</span> <span class="o">+</span> <span class="n">ms</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span> <span class="o">=</span> <span class="n">onsettime</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wavOutFilename</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.wav&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span> <span class="o">+=</span> <span class="s1">&#39;.wav&#39;</span>
+
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recorder</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rate</span> <span class="o">=</span> <span class="n">backend_pyo</span><span class="o">.</span><span class="n">pyoSndServer</span><span class="o">.</span><span class="n">getSamplingRate</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">block</span><span class="p">:</span>
+            <span class="n">core</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">log</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">autoLog</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: Record: stop. </span><span class="si">%.3f</span><span class="s1">, capture </span><span class="si">%.3f</span><span class="s1">s (est)&#39;</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loggingId</span><span class="p">,</span> <span class="n">core</span><span class="o">.</span><span class="n">getTime</span><span class="p">(),</span>
+                                   <span class="n">core</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="p">))</span>
+            <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">recorder</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
+                <span class="n">core</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">.001</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">log</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">autoLog</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: Record: return immediately, no blocking&#39;</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loggingId</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span>
+
+<div class="viewcode-block" id="AudioCapture.playback">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.AudioCapture.playback">[docs]</a>
+    <span class="k">def</span> <span class="nf">playback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">loops</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plays the saved .wav file, as just recorded or resampled. Execution</span>
+<span class="sd">        blocks by default, but can return immediately with `block=False`.</span>
+
+<span class="sd">        `loops` : number of extra repetitions; 0 = play once</span>
+
+<span class="sd">        `stop` : True = immediately stop ongoing playback (if there is one),</span>
+<span class="sd">        and return</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: Playback requested but no saved file&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">loggingId</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">stop</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;current_recording&#39;</span><span class="p">)</span> <span class="ow">and</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">current_recording</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">PLAYING</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">current_recording</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+            <span class="k">return</span>
+
+        <span class="c1"># play this file:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.current_recording&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_recording</span> <span class="o">=</span> <span class="n">backend_pyo</span><span class="o">.</span><span class="n">SoundPyo</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">loops</span><span class="o">=</span><span class="n">loops</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_recording</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">block</span><span class="p">:</span>
+            <span class="n">core</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">*</span> <span class="p">(</span><span class="n">loops</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># set during record()</span>
+
+        <span class="k">if</span> <span class="n">log</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">autoLog</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">loops</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: Playback: play </span><span class="si">%.3f</span><span class="s1">s x </span><span class="si">%d</span><span class="s1"> (est) </span><span class="si">%s</span><span class="s1">&#39;</span>
+                <span class="n">vals</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loggingId</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">,</span> <span class="n">loops</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">)</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">vals</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: Playback: play </span><span class="si">%.3f</span><span class="s1">s (est) </span><span class="si">%s</span><span class="s1">&#39;</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loggingId</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">,</span>
+                                   <span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="AudioCapture.resample">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.AudioCapture.resample">[docs]</a>
+    <span class="k">def</span> <span class="nf">resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newRate</span><span class="o">=</span><span class="mi">16000</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Re-sample the saved file to a new rate, return the full path.</span>
+
+<span class="sd">        Can take several visual frames to resample a 2s recording.</span>
+
+<span class="sd">        The default values for resample() are for Google-speech, keeping the</span>
+<span class="sd">        original (presumably recorded at 48kHz) to archive.</span>
+<span class="sd">        A warning is generated if the new rate not an integer factor /</span>
+<span class="sd">        multiple of the old rate.</span>
+
+<span class="sd">        To control anti-aliasing, use pyo.downsamp() or upsamp() directly.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: Re-sample requested but no saved file&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">loggingId</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">newRate</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">newRate</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: Re-sample bad new rate = </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loggingId</span><span class="p">,</span>
+                                                       <span class="nb">repr</span><span class="p">(</span><span class="n">newRate</span><span class="p">))</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># set-up:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate</span> <span class="o">&gt;=</span> <span class="n">newRate</span><span class="p">:</span>
+            <span class="n">ratio</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">)</span> <span class="o">/</span> <span class="n">newRate</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="s1">&#39;-ds</span><span class="si">%i</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ratio</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ratio</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">newRate</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="s1">&#39;-us</span><span class="si">%i</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ratio</span>
+        <span class="k">if</span> <span class="n">ratio</span> <span class="o">!=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ratio</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: old rate is not an integer factor of new rate&#39;</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">loggingId</span><span class="p">)</span>
+        <span class="n">ratio</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ratio</span><span class="p">)</span>
+        <span class="n">newFile</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">))</span>
+
+        <span class="c1"># use pyo&#39;s downsamp or upsamp based on relative rates:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ratio</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: Re-sample by </span><span class="si">%s</span><span class="s1">x is undefined, skipping&#39;</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loggingId</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">ratio</span><span class="p">)))</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate</span> <span class="o">&gt;=</span> <span class="n">newRate</span><span class="p">:</span>
+            <span class="n">t0</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>
+            <span class="c1"># default 128-sample anti-aliasing</span>
+            <span class="n">pyo</span><span class="o">.</span><span class="n">downsamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">,</span> <span class="n">newFile</span><span class="p">,</span> <span class="n">ratio</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">log</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">autoLog</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: Down-sampled </span><span class="si">%s</span><span class="s1">x in </span><span class="si">%.3f</span><span class="s1">s to </span><span class="si">%s</span><span class="s1">&#39;</span>
+                <span class="n">vals</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loggingId</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">ratio</span><span class="p">),</span> <span class="n">core</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="p">,</span>
+                        <span class="n">newFile</span><span class="p">)</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">vals</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">t0</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>
+            <span class="c1"># default 128-sample anti-aliasing</span>
+            <span class="n">pyo</span><span class="o">.</span><span class="n">upsamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">,</span> <span class="n">newFile</span><span class="p">,</span> <span class="n">ratio</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">log</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">autoLog</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: Up-sampled </span><span class="si">%s</span><span class="s1">x in </span><span class="si">%.3f</span><span class="s1">s to </span><span class="si">%s</span><span class="s1">&#39;</span>
+                <span class="n">vals</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loggingId</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">ratio</span><span class="p">),</span> <span class="n">core</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="p">,</span>
+                        <span class="n">newFile</span><span class="p">)</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">vals</span><span class="p">)</span>
+
+        <span class="c1"># clean-up:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">keep</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span> <span class="o">=</span> <span class="n">newFile</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rate</span> <span class="o">=</span> <span class="n">newRate</span>
+
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">newFile</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="AdvAudioCapture">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.AdvAudioCapture">[docs]</a>
+<span class="k">class</span> <span class="nc">AdvAudioCapture</span><span class="p">(</span><span class="n">AudioCapture</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class extends AudioCapture, plays marker sound as a &quot;start&quot; indicator.</span>
+
+<span class="sd">    Has method for retrieving the marker onset time from the file, to allow</span>
+<span class="sd">    calculation of vocal RT (or other sound-based RT).</span>
+
+<span class="sd">    See Coder demo &gt; input &gt; latencyFromTone.py</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;advMic&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">saveDir</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sampletype</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">buffering</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">chnl</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stereo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoLog</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">AudioCapture</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+                              <span class="n">saveDir</span><span class="o">=</span><span class="n">saveDir</span><span class="p">,</span> <span class="n">sampletype</span><span class="o">=</span><span class="n">sampletype</span><span class="p">,</span>
+                              <span class="n">buffering</span><span class="o">=</span><span class="n">buffering</span><span class="p">,</span> <span class="n">chnl</span><span class="o">=</span><span class="n">chnl</span><span class="p">,</span> <span class="n">stereo</span><span class="o">=</span><span class="n">stereo</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setMarker</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">autoLog</span> <span class="o">=</span> <span class="n">autoLog</span>
+
+<div class="viewcode-block" id="AdvAudioCapture.record">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.AdvAudioCapture.record">[docs]</a>
+    <span class="k">def</span> <span class="nf">record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sec</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Starts recording and plays an onset marker tone just prior</span>
+<span class="sd">        to returning. The idea is that the start of the tone in the</span>
+<span class="sd">        recording indicates when this method returned, to enable you to sync</span>
+<span class="sd">        a known recording onset with other events.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># get effectively the same timing if play after starting the record</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playMarker</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_record</span><span class="p">(</span><span class="n">sec</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="n">block</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span></div>
+
+
+<div class="viewcode-block" id="AdvAudioCapture.setFile">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.AdvAudioCapture.setFile">[docs]</a>
+    <span class="k">def</span> <span class="nf">setFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the name of the file to work with.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span></div>
+
+
+<div class="viewcode-block" id="AdvAudioCapture.setMarker">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.AdvAudioCapture.setMarker">[docs]</a>
+    <span class="k">def</span> <span class="nf">setMarker</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tone</span><span class="o">=</span><span class="mi">19000</span><span class="p">,</span> <span class="n">secs</span><span class="o">=</span><span class="mf">0.015</span><span class="p">,</span> <span class="n">volume</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the onset marker, where `tone` is either in hz or a custom</span>
+<span class="sd">        sound.</span>
+
+<span class="sd">        The default tone (19000 Hz) is recommended for auto-detection,</span>
+<span class="sd">        as being easier to isolate from speech sounds (and so reliable</span>
+<span class="sd">        to detect). The default duration and volume are appropriate for</span>
+<span class="sd">        a quiet setting such as a lab testing room. A louder volume, longer</span>
+<span class="sd">        duration, or both may give better results when recording loud sounds</span>
+<span class="sd">        or in noisy environments, and will be auto-detected just fine</span>
+<span class="sd">        (even more easily). If the hardware microphone in use is not</span>
+<span class="sd">        physically near the speaker hardware, a louder volume is likely</span>
+<span class="sd">        to be required.</span>
+
+<span class="sd">        Custom sounds cannot be auto-detected, but are supported anyway for</span>
+<span class="sd">        presentation purposes. E.g., a recording of someone saying &quot;go&quot; or</span>
+<span class="sd">        &quot;stop&quot; could be passed as the onset marker.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">tone</span><span class="p">,</span> <span class="s1">&#39;play&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">marker_hz</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">marker</span> <span class="o">=</span> <span class="n">tone</span>
+            <span class="k">if</span> <span class="n">log</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">autoLog</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="s1">&#39;custom sound set as marker; getMarkerOnset()&#39;</span>
+                            <span class="s1">&#39; will not be able to auto-detect onset&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">marker_hz</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">tone</span><span class="p">)</span>
+            <span class="n">sampleRate</span> <span class="o">=</span> <span class="n">backend_pyo</span><span class="o">.</span><span class="n">pyoSndServer</span><span class="o">.</span><span class="n">getSamplingRate</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">sampleRate</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">marker_hz</span><span class="p">:</span>
+                <span class="c1"># NyquistError</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Recording rate (</span><span class="si">%i</span><span class="s2"> Hz) too slow for </span><span class="si">%i</span><span class="s2"> Hz-based&quot;</span>
+                       <span class="s2">&quot; marker detection.&quot;</span><span class="p">)</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">sampleRate</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">marker_hz</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">log</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">autoLog</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;frequency of recording onset marker: </span><span class="si">%.1f</span><span class="s1">&#39;</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">marker_hz</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">marker</span> <span class="o">=</span> <span class="n">backend_pyo</span><span class="o">.</span><span class="n">SoundPyo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">marker_hz</span><span class="p">,</span> <span class="n">secs</span><span class="p">,</span> <span class="n">volume</span><span class="o">=</span><span class="n">volume</span><span class="p">,</span>
+                                      <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.marker_tone&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AdvAudioCapture.playMarker">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.AdvAudioCapture.playMarker">[docs]</a>
+    <span class="k">def</span> <span class="nf">playMarker</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plays the current marker sound. This is automatically called at the</span>
+<span class="sd">        start of recording, but can be called anytime to insert a marker.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">marker</span><span class="o">.</span><span class="n">play</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="AdvAudioCapture.getMarkerInfo">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.AdvAudioCapture.getMarkerInfo">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMarkerInfo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns (hz, duration, volume) of the marker sound.</span>
+<span class="sd">        Custom markers always return 0 hz (regardless of the sound).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dur</span><span class="p">,</span> <span class="n">vol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">marker</span><span class="o">.</span><span class="n">getDuration</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">marker</span><span class="o">.</span><span class="n">getVolume</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">marker_hz</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">vol</span></div>
+
+
+<div class="viewcode-block" id="AdvAudioCapture.getMarkerOnset">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.AdvAudioCapture.getMarkerOnset">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMarkerOnset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunk</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">secs</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return (onset, offset) time of the first marker within the</span>
+<span class="sd">        first `secs` of the saved recording.</span>
+
+<span class="sd">        Has approx ~1.33ms resolution at 48000Hz, chunk=64. Larger chunks</span>
+<span class="sd">        can speed up processing times, at a sacrifice of some resolution,</span>
+<span class="sd">        e.g., to pre-process long recordings with multiple markers.</span>
+
+<span class="sd">        If given a filename, it will first set that file as the one to</span>
+<span class="sd">        work with, and then try to detect the onset marker.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">recorder</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
+            <span class="n">core</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">0.10</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setFile</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span>
+
+        <span class="k">return</span> <span class="n">getMarkerOnset</span><span class="p">(</span><span class="n">chunk</span><span class="o">=</span><span class="n">chunk</span><span class="p">,</span> <span class="n">secs</span><span class="o">=</span><span class="n">secs</span><span class="p">,</span>
+                              <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+                              <span class="n">marker_hz</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">marker_hz</span><span class="p">,</span>
+                              <span class="n">marker_duration</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">marker</span><span class="o">.</span><span class="n">getDuration</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="AdvAudioCapture.getLoudness">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.AdvAudioCapture.getLoudness">[docs]</a>
+    <span class="k">def</span> <span class="nf">getLoudness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the RMS loudness of the saved recording.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># use cached value unless the file has changed, based on its mod time:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">mtime</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> no .savedFile, try again&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">core</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;no such file&#39;</span><span class="p">)</span>
+            <span class="n">mtime</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;rms&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">mtime</span> <span class="o">!=</span> <span class="n">mtime</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rms</span> <span class="o">=</span> <span class="n">getRMS</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">)</span>  <span class="c1"># ~3ms for 2s file</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mtime</span> <span class="o">=</span> <span class="n">mtime</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rms</span></div>
+
+
+<div class="viewcode-block" id="AdvAudioCapture.compress">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.AdvAudioCapture.compress">[docs]</a>
+    <span class="k">def</span> <span class="nf">compress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compress using FLAC (lossless compression).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.wav&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span> <span class="o">=</span> <span class="n">wav2flac</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="n">keep</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AdvAudioCapture.uncompress">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.AdvAudioCapture.uncompress">[docs]</a>
+    <span class="k">def</span> <span class="nf">uncompress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Uncompress from FLAC to .wav format.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">isFlac</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.flac&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">)</span> <span class="ow">and</span> <span class="n">isFlac</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span> <span class="o">=</span> <span class="n">flac2wav</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">savedFile</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="n">keep</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="getMarkerOnset">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.getMarkerOnset">[docs]</a>
+<span class="k">def</span> <span class="nf">getMarkerOnset</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">chunk</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">secs</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">marker_hz</span><span class="o">=</span><span class="mi">19000</span><span class="p">,</span>
+                   <span class="n">marker_duration</span><span class="o">=</span><span class="mf">0.015</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns marker sound (onset, offset) in sec, as read from filename.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">thresh2SD</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mult</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">thr</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return index of first value in abs(data) exceeding 2 * std(data),</span>
+<span class="sd">        or length of the data + 1 if nothing &gt; threshold</span>
+
+<span class="sd">        Return threshold so can re-use the same threshold later</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># this algorithm could use improvement</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">thr</span><span class="p">:</span>
+            <span class="n">thr</span> <span class="o">=</span> <span class="n">mult</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">data</span><span class="p">[(</span><span class="n">data</span> <span class="o">&gt;</span> <span class="n">thr</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">thr</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="n">first</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">i</span><span class="p">,</span> <span class="n">thr</span>
+
+    <span class="c1"># read data from file:</span>
+    <span class="n">data</span><span class="p">,</span> <span class="n">sampleRate</span> <span class="o">=</span> <span class="n">readWavFile</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">marker_hz</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Custom marker sounds cannot be auto-detected.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">sampleRate</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">marker_hz</span><span class="p">:</span>
+        <span class="c1"># NyquistError</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Recording rate (</span><span class="si">%i</span><span class="s2"> Hz) too slow for </span><span class="si">%i</span><span class="s2"> Hz-based marker detection.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">sampleRate</span><span class="p">),</span> <span class="n">marker_hz</span><span class="p">))</span>
+
+    <span class="c1"># extract onset:</span>
+    <span class="n">chunk</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">chunk</span><span class="p">)</span>  <span class="c1"># trades-off against size of bandpass filter</span>
+    <span class="c1"># precision in time-domain (= smaller chunks) requires wider freq</span>
+    <span class="c1"># {16: 2400, 32: 1200, 64: 600, 128: 300}</span>
+    <span class="n">bandSize</span> <span class="o">=</span> <span class="mi">150</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">chunk</span><span class="p">)))</span>
+    <span class="n">dataToUse</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="n">sampleRate</span> <span class="o">*</span> <span class="n">secs</span><span class="p">)]</span>  <span class="c1"># only look at first secs</span>
+    <span class="n">lo</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">marker_hz</span> <span class="o">-</span> <span class="n">bandSize</span><span class="p">)</span>  <span class="c1"># for bandpass filter</span>
+    <span class="n">hi</span> <span class="o">=</span> <span class="n">marker_hz</span> <span class="o">+</span> <span class="n">bandSize</span>
+    <span class="n">dftProfile</span> <span class="o">=</span> <span class="n">getDftBins</span><span class="p">(</span><span class="n">dataToUse</span><span class="p">,</span> <span class="n">sampleRate</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">,</span> <span class="n">chunk</span><span class="p">)</span>
+    <span class="c1"># leading edge of startMarker in chunks</span>
+    <span class="n">onsetChunks</span><span class="p">,</span> <span class="n">thr</span> <span class="o">=</span> <span class="n">thresh2SD</span><span class="p">(</span><span class="n">dftProfile</span><span class="p">)</span>
+    <span class="n">onsetSecs</span> <span class="o">=</span> <span class="n">onsetChunks</span> <span class="o">*</span> <span class="n">chunk</span> <span class="o">/</span> <span class="n">sampleRate</span>  <span class="c1"># in secs</span>
+
+    <span class="c1"># extract offset:</span>
+    <span class="n">ratio</span> <span class="o">=</span> <span class="n">chunk</span> <span class="o">/</span> <span class="n">sampleRate</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">onsetChunks</span> <span class="o">-</span> <span class="mi">4</span>
+    <span class="n">stop</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">onsetChunks</span> <span class="o">+</span> <span class="n">marker_duration</span> <span class="o">/</span> <span class="n">ratio</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span>
+    <span class="n">backwards</span> <span class="o">=</span> <span class="n">dftProfile</span><span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span><span class="nb">min</span><span class="p">(</span><span class="n">stop</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dftProfile</span><span class="p">))]</span>
+    <span class="n">offChunks</span><span class="p">,</span> <span class="n">_junk</span> <span class="o">=</span> <span class="n">thresh2SD</span><span class="p">(</span><span class="n">backwards</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">thr</span><span class="o">=</span><span class="n">thr</span><span class="p">)</span>
+    <span class="n">offSecs</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">backwards</span><span class="p">)</span> <span class="o">-</span> <span class="n">offChunks</span><span class="p">)</span> <span class="o">*</span> <span class="n">ratio</span>
+    <span class="c1"># in secs</span>
+
+    <span class="k">return</span> <span class="n">onsetSecs</span><span class="p">,</span> <span class="n">offSecs</span></div>
+
+
+
+<div class="viewcode-block" id="readWavFile">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.readWavFile">[docs]</a>
+<span class="k">def</span> <span class="nf">readWavFile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return (data, sampleRate) as read from a wav file, expects int16 data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">pathToString</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">sampleRate</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">wavfile</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="n">core</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sampleRate</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">wavfile</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Failed to open wav sound file &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span>
+            <span class="k">raise</span> <span class="n">SoundFileError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span> <span class="o">!=</span> <span class="s1">&#39;int16&#39;</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;expected `int16` data in .wav file </span><span class="si">%s</span><span class="s1">&#39;</span>
+        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># left channel only? depends on how the file was made</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">sampleRate</span></div>
+
+
+
+<div class="viewcode-block" id="getDftBins">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.getDftBins">[docs]</a>
+<span class="k">def</span> <span class="nf">getDftBins</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sampleRate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">8000</span><span class="p">,</span> <span class="n">chunk</span><span class="o">=</span><span class="mi">64</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return DFT (discrete Fourier transform) of ``data``, doing so in</span>
+<span class="sd">    time-domain bins, each of size ``chunk`` samples.</span>
+
+<span class="sd">    e.g., for getting FFT magnitudes in a ms-by-ms manner.</span>
+
+<span class="sd">    If given a sampleRate, the data are bandpass filtered (low, high).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># good to reshape &amp; vectorize data rather than use a python loop</span>
+    <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">bins</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">chunk</span>
+    <span class="k">if</span> <span class="n">sampleRate</span><span class="p">:</span>
+        <span class="c1"># just to get freq vector</span>
+        <span class="n">_junk</span><span class="p">,</span> <span class="n">freq</span> <span class="o">=</span> <span class="n">getDft</span><span class="p">(</span><span class="n">data</span><span class="p">[:</span><span class="n">chunk</span><span class="p">],</span> <span class="n">sampleRate</span><span class="p">)</span>
+        <span class="n">band</span> <span class="o">=</span> <span class="p">(</span><span class="n">freq</span> <span class="o">&gt;</span> <span class="n">low</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">freq</span> <span class="o">&lt;</span> <span class="n">high</span><span class="p">)</span>  <span class="c1"># band (frequency range)</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+        <span class="n">magn</span> <span class="o">=</span> <span class="n">getDft</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">chunk</span><span class="p">:</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">sampleRate</span><span class="p">:</span>
+            <span class="n">bins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">magn</span><span class="p">[</span><span class="n">band</span><span class="p">]))</span>  <span class="c1"># filtered by frequency</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">magn</span><span class="p">))</span>  <span class="c1"># unfiltered</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="n">chunk</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bins</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="getDft">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.getDft">[docs]</a>
+<span class="k">def</span> <span class="nf">getDft</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sampleRate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wantPhase</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute and return magnitudes of numpy.fft.fft() of the data.</span>
+
+<span class="sd">    If given a sample rate (samples/sec), will return (magn, freq).</span>
+<span class="sd">    If wantPhase is True, phase in radians is also returned</span>
+<span class="sd">    (magn, freq, phase). data should have power-of-2 samples,</span>
+<span class="sd">    or will be truncated.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># www.vibrationdata.com/Shock_and_Vibration_Signal_Analysis.pdf</span>
+    <span class="c1"># and .../python/fft.py</span>
+    <span class="c1"># truncate to power-of-2 slice; zero-padding to round up is ok too</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)))</span>
+    <span class="n">samplesHalf</span> <span class="o">=</span> <span class="n">samples</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">dataSlice</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="n">samples</span><span class="p">]</span>
+
+    <span class="c1"># get magn &amp; phase from the DFT:</span>
+    <span class="n">dft</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">dataSlice</span><span class="p">)</span>
+    <span class="n">dftHalf</span> <span class="o">=</span> <span class="n">dft</span><span class="p">[:</span><span class="n">samplesHalf</span><span class="p">]</span> <span class="o">/</span> <span class="n">samples</span>
+    <span class="n">magn</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dftHalf</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="n">magn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/=</span> <span class="mf">2.</span>
+    <span class="k">if</span> <span class="n">wantPhase</span><span class="p">:</span>
+        <span class="n">phase</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">dftHalf</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">dftHalf</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span>  <span class="c1"># in radians</span>
+    <span class="k">if</span> <span class="n">sampleRate</span><span class="p">:</span>
+        <span class="n">deltaf</span> <span class="o">=</span> <span class="n">sampleRate</span> <span class="o">/</span> <span class="n">samplesHalf</span> <span class="o">/</span> <span class="mf">2.</span>
+        <span class="n">freq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">samplesHalf</span> <span class="o">*</span> <span class="n">deltaf</span><span class="p">,</span>
+                           <span class="n">samplesHalf</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">wantPhase</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">magn</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">phase</span>
+        <span class="k">return</span> <span class="n">magn</span><span class="p">,</span> <span class="n">freq</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">wantPhase</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">magn</span><span class="p">,</span> <span class="n">phase</span>
+        <span class="k">return</span> <span class="n">magn</span></div>
+
+
+
+<div class="viewcode-block" id="getRMSBins">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.getRMSBins">[docs]</a>
+<span class="k">def</span> <span class="nf">getRMSBins</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">chunk</span><span class="o">=</span><span class="mi">64</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return RMS (loudness) in bins of ``chunk`` samples</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># better to vectorize</span>
+    <span class="n">bins</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">chunk</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">getRMS</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">chunk</span><span class="p">:</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">bins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="n">chunk</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bins</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="getRMS">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.getRMS">[docs]</a>
+<span class="k">def</span> <span class="nf">getRMS</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute and return the audio power (&quot;loudness&quot;).</span>
+
+<span class="sd">    Uses numpy.std() as RMS. std() is same as RMS if the mean is 0,</span>
+<span class="sd">    and .wav data should have a mean of 0.</span>
+<span class="sd">    Returns an array if given stereo data (RMS computed within-channel).</span>
+
+<span class="sd">    `data` can be an array (1D, 2D) or filename; .wav format only.</span>
+<span class="sd">    data from .wav files will be normalized to -1..+1 before RMS is computed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_rms</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Audio loudness / power, as rms; ~2x faster than std()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># np.sqrt(np.mean(data ** 2, axis=1))</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># np.sqrt(np.mean(data ** 2))</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;getRMS: could not find file </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">_junk</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">wavfile</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">data_tr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data_tr</span> <span class="o">/</span> <span class="mf">32768.</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_rms</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="SoundFormatNotSupported">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.SoundFormatNotSupported">[docs]</a>
+<span class="k">class</span> <span class="nc">SoundFormatNotSupported</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to report an unsupported sound format&quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="SoundFileError">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.SoundFileError">[docs]</a>
+<span class="k">class</span> <span class="nc">SoundFileError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to report sound file failed to load&quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="MicrophoneError">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.MicrophoneError">[docs]</a>
+<span class="k">class</span> <span class="nc">MicrophoneError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to report a microphone error&quot;&quot;&quot;</span></div>
+
+
+
+<span class="k">class</span> <span class="nc">_GSQueryThread</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Internal thread class to send a sound file to Google, stash the response.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;GoogleSpeechQuery&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># request is a previously established urllib2.request() obj, namely:</span>
+        <span class="c1"># request = urllib2.Request(url, audio, header) at end of</span>
+        <span class="c1"># Speech2Text.__init__</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span> <span class="o">=</span> <span class="n">request</span>
+
+        <span class="c1"># set vars and flags:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t0</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stopflag</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timedout</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># whether run() has been started, not thread start():</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">started</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># initialize data fields that will be exposed:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">confidence</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">json</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">raw</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">word</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detailed</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">words</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">elapsed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># report duration depending on the state of the thread:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">started</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">core</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">t0</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># whether timed-out or not:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span>
+
+    <span class="k">def</span> <span class="nf">_unpackRaw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># parse raw url response from google, expose via data fields (see</span>
+        <span class="c1"># _reset):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reset</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;FAILED&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">utter_list</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;hypotheses&quot;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">utter_list</span><span class="p">:</span>
+                <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%-10s</span><span class="s2"> : </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">utter_list</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="s1">&#39;confidence&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">conf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">confidence</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">utter_list</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="s2">&quot;hypotheses&quot;</span><span class="p">:</span>
+                <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%-10s</span><span class="s2"> : </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detailed</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">words</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">report</span>
+                            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;utterance&#39;</span><span class="p">)])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">words</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">word</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">words</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">word</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t0</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>  <span class="c1"># before .running goes True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">started</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">raw</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+            <span class="c1"># yeah, its the internet, stuff happens</span>
+            <span class="c1"># maybe temporary HTTPError: HTTP Error 502: Bad Gateway</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">raw</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>  <span class="c1"># or maybe a dropped connection, etc</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ex</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># proceeds as if &quot;timedout&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">t0</span>
+        <span class="c1"># if no one called .stop() in the meantime, unpack the data:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_unpackRaw</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timedout</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timedout</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<div class="viewcode-block" id="Speech2Text">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.Speech2Text">[docs]</a>
+<span class="k">class</span> <span class="nc">Speech2Text</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class for speech-recognition (voice to text), using Google&#39;s public API.</span>
+
+<span class="sd">        Google&#39;s speech API is currently free to use, and seems to work well.</span>
+<span class="sd">        Intended for within-experiment processing (near real-time, 1-2s delayed), in which</span>
+<span class="sd">        it&#39;s often important to skip a slow or failed response, and not wait a long time;</span>
+<span class="sd">        `BatchSpeech2Text()` reverses these priorities.</span>
+
+<span class="sd">        It is possible (and</span>
+<span class="sd">        perhaps even likely) that Google will start charging for usage. In addition, they</span>
+<span class="sd">        can change the interface at any time, including in the middle of an experiment.</span>
+<span class="sd">        (If so, please post to the user list and we&#39;ll try to develop a fix, but</span>
+<span class="sd">        there could still be some downtime.) Presumably, confidential</span>
+<span class="sd">        or otherwise sensitive voice data should not be sent to google.</span>
+
+<span class="sd">        :Note:</span>
+
+<span class="sd">            Requires that flac is installed (free download from  https://xiph.org/flac/download.html).</span>
+<span class="sd">            If you download and install flac, but get an error that flac is missing,</span>
+<span class="sd">            try setting the full path to flac in preferences -&gt; general -&gt; flac.</span>
+
+<span class="sd">        :Usage:</span>
+
+<span class="sd">        a) Always import and make an object; no data are available yet::</span>
+
+<span class="sd">            from microphone import Speech2Text</span>
+<span class="sd">            gs = Speech2Text(&#39;speech_clip.wav&#39;) # set-up only</span>
+
+<span class="sd">        b) Then, either: Initiate a query and wait for response from google (or until the time-out limit is reached). This is &quot;blocking&quot; mode, and is the easiest to do::</span>
+
+<span class="sd">            resp = gs.getResponse() # execution blocks here</span>
+<span class="sd">            print(resp.word, resp.confidence)</span>
+
+<span class="sd">        c) Or instead (advanced usage): Initiate a query, but do not wait for a response (&quot;thread&quot; mode: no blocking, no timeout, more control). `running` will change to False when a response is received (or hang indefinitely if something goes wrong--so you might want to implement a time-out as well)::</span>
+
+<span class="sd">            resp = gs.getThread() # returns immediately</span>
+<span class="sd">            while resp.running:</span>
+<span class="sd">                print(&#39;.&#39;,) # displays dots while waiting</span>
+<span class="sd">                sys.stdout.flush()</span>
+<span class="sd">                core.wait(0.1)</span>
+<span class="sd">            print(resp.words)</span>
+
+<span class="sd">        d) Options: Set-up with a different language for the same speech clip; you&#39;ll get a different response (possibly having UTF-8 characters)::</span>
+
+<span class="sd">            gs = Speech2Text(&#39;speech_clip.wav&#39;, lang=&#39;ja-JP&#39;)</span>
+<span class="sd">            resp = gs.getResponse()</span>
+
+<span class="sd">        :Example:</span>
+
+<span class="sd">            See Coder demos / input / speech_recognition.py</span>
+
+<span class="sd">        :Known limitations:</span>
+
+<span class="sd">            Availability is subject to the whims of google. Any changes google</span>
+<span class="sd">            makes along the way could either cause complete failure (disruptive),</span>
+<span class="sd">            or could cause slightly different results to be obtained (without it being</span>
+<span class="sd">            readily obvious that something had changed). For this reason,</span>
+<span class="sd">            it&#39;s probably a good idea to re-run speech samples through `Speech2Text` at the end of</span>
+<span class="sd">            a study; see `BatchSpeech2Text()`.</span>
+
+<span class="sd">        :Author: Jeremy R. Gray, with thanks to Lefteris Zafiris for his help</span>
+<span class="sd">            and excellent command-line perl script at https://github.com/zaf/asterisk-speech-recog (GPLv2)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span>
+                 <span class="n">lang</span><span class="o">=</span><span class="s1">&#39;en-US&#39;</span><span class="p">,</span>
+                 <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                 <span class="n">samplingrate</span><span class="o">=</span><span class="mi">16000</span><span class="p">,</span>
+                 <span class="n">pro_filter</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                 <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            :Parameters:</span>
+
+<span class="sd">                `filename` : &lt;required&gt;</span>
+<span class="sd">                    name of the speech file (.flac, .wav, or .spx) to process. wav files will be</span>
+<span class="sd">                    converted to flac, and for this to work you need to have flac (as an</span>
+<span class="sd">                    executable). spx format is speex-with-headerbyte (for Google).</span>
+<span class="sd">                `lang` :</span>
+<span class="sd">                    the presumed language of the speaker, as a locale code; default &#39;en-US&#39;</span>
+<span class="sd">                `timeout` :</span>
+<span class="sd">                    seconds to wait before giving up, default 10</span>
+<span class="sd">                `samplingrate` :</span>
+<span class="sd">                    the sampling rate of the speech clip in Hz, either 16000 or 8000. You can</span>
+<span class="sd">                    record at a higher rate, and then down-sample to 16000 for speech</span>
+<span class="sd">                    recognition. `file` is the down-sampled file, not the original.</span>
+<span class="sd">                    the sampling rate is auto-detected for .wav files.</span>
+<span class="sd">                `pro_filter` :</span>
+<span class="sd">                    profanity filter level; default 2 (e.g., f***)</span>
+<span class="sd">                `level` :</span>
+<span class="sd">                    flac compression level (0 less compression but fastest)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># set up some key parameters:</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># how many words wanted</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+        <span class="n">useragent</span> <span class="o">=</span> <span class="n">PSYCHOPY_USERAGENT</span>
+        <span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;www.google.com/speech-api/v1/recognize&quot;</span>
+
+        <span class="c1"># determine file type, convert wav to flac if needed:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Cannot find file: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;.flac&#39;</span><span class="p">,</span> <span class="s1">&#39;.wav&#39;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="n">SoundFormatNotSupported</span><span class="p">(</span><span class="s2">&quot;Unsupported filetype: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">ext</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.wav&#39;</span><span class="p">:</span>
+            <span class="n">_junk</span><span class="p">,</span> <span class="n">samplingrate</span> <span class="o">=</span> <span class="n">readWavFile</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">samplingrate</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">16000</span><span class="p">,</span> <span class="mi">8000</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="n">SoundFormatNotSupported</span><span class="p">(</span>
+                <span class="s1">&#39;Speech2Text sample rate must be 16000 or 8000 Hz&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;.flac&quot;</span><span class="p">:</span>
+            <span class="n">filetype</span> <span class="o">=</span> <span class="s2">&quot;x-flac&quot;</span>
+        <span class="k">elif</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;.wav&quot;</span><span class="p">:</span>  <span class="c1"># convert to .flac</span>
+            <span class="n">filetype</span> <span class="o">=</span> <span class="s2">&quot;x-flac&quot;</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">wav2flac</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>  <span class="c1"># opt for speed</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading: </span><span class="si">%s</span><span class="s2"> as </span><span class="si">%s</span><span class="s2">, audio/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">lang</span><span class="p">,</span> <span class="n">filetype</span><span class="p">))</span>
+        <span class="c1"># occasional error; core.wait(.1) is not always enough; better slow</span>
+        <span class="c1"># than fail</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="ow">and</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">core</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">c</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">audio</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.wav&#39;</span> <span class="ow">and</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.flac&#39;</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="c1"># urllib2 makes no attempt to validate the server certificate. here&#39;s an idea:</span>
+        <span class="c1"># http://thejosephturner.com/blog/2011/03/19/https-certificate-verification-in-python-with-urllib2/</span>
+        <span class="c1"># set up the https request:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://&#39;</span> <span class="o">+</span> <span class="n">host</span> <span class="o">+</span> <span class="s1">&#39;?xjerr=1&amp;&#39;</span> <span class="o">+</span>\
+              <span class="s1">&#39;client=psychopy3&amp;&#39;</span> <span class="o">+</span>\
+              <span class="s1">&#39;lang=&#39;</span> <span class="o">+</span> <span class="n">lang</span> <span class="o">+</span> <span class="s1">&#39;&amp;&#39;</span>\
+              <span class="s1">&#39;pfilter=</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">pro_filter</span> <span class="o">+</span> <span class="s1">&#39;&amp;&#39;</span>\
+              <span class="s1">&#39;maxresults=</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">results</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;audio/</span><span class="si">%s</span><span class="s1">; rate=</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">filetype</span><span class="p">,</span> <span class="n">samplingrate</span><span class="p">),</span>
+                  <span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="n">useragent</span><span class="p">}</span>
+        <span class="n">web</span><span class="o">.</span><span class="n">requireInternetAccess</span><span class="p">()</span>  <span class="c1"># needed to access google&#39;s speech API</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">request</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">audio</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+            <span class="c1"># try again before accepting defeat</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;https request failed. </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">. trying again...&quot;</span> <span class="o">%</span>
+                         <span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">))</span>
+            <span class="n">core</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">request</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">audio</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Speech2Text.getThread">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.Speech2Text.getThread">[docs]</a>
+    <span class="k">def</span> <span class="nf">getThread</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Send a query to Google using a new thread, no blocking or timeout.</span>
+
+<span class="sd">        Returns a thread which will **eventually** (not immediately) have the speech</span>
+<span class="sd">        data in its namespace; see getResponse. In theory, you could have several</span>
+<span class="sd">        threads going simultaneously (almost all the time is spent waiting for a</span>
+<span class="sd">        response), rather than doing them sequentially (not tested).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">gsqthread</span> <span class="o">=</span> <span class="n">_GSQueryThread</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">gsqthread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Sending speech-recognition https request to google&quot;</span><span class="p">)</span>
+        <span class="n">gsqthread</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">gsqthread</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
+            <span class="c1"># can return too quickly if thread is slow to start</span>
+            <span class="n">core</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">gsqthread</span>  <span class="c1"># word and time data will eventually be in the namespace</span></div>
+
+
+<div class="viewcode-block" id="Speech2Text.getResponse">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.Speech2Text.getResponse">[docs]</a>
+    <span class="k">def</span> <span class="nf">getResponse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls `getThread()`, and then polls the thread until there&#39;s a response.</span>
+
+<span class="sd">        Will time-out if no response comes within `timeout` seconds. Returns an</span>
+<span class="sd">        object having the speech data in its namespace. If there&#39;s no match,</span>
+<span class="sd">        generally the values will be equivalent to `None` (e.g., an empty string).</span>
+
+<span class="sd">        If you do `resp = getResponse()`, you&#39;ll be able to access the data</span>
+<span class="sd">        in several ways:</span>
+
+<span class="sd">            `resp.word` :</span>
+<span class="sd">                the best match, i.e., the most probably word, or `None`</span>
+<span class="sd">            `resp.confidence` :</span>
+<span class="sd">                Google&#39;s confidence about `.word`, ranging 0 to 1</span>
+<span class="sd">            `resp.words` :</span>
+<span class="sd">                tuple of up to 5 guesses; so `.word` == `.words[0]`</span>
+<span class="sd">            `resp.raw` :</span>
+<span class="sd">                the raw response from Google (just a string)</span>
+<span class="sd">            `resp.json` :</span>
+<span class="sd">                a parsed version of raw, from `json.load(raw)`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">gsqthread</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getThread</span><span class="p">()</span>
+        <span class="k">while</span> <span class="n">gsqthread</span><span class="o">.</span><span class="n">elapsed</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">:</span>
+            <span class="c1"># don&#39;t need precise timing to poll an http connection</span>
+            <span class="n">core</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">gsqthread</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="n">gsqthread</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>  <span class="c1"># timed out</span>
+            <span class="n">gsqthread</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="mi">408</span>  <span class="c1"># same as http code</span>
+        <span class="k">return</span> <span class="n">gsqthread</span>  <span class="c1"># word and time data are already in the namespace</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="BatchSpeech2Text">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.BatchSpeech2Text">[docs]</a>
+<span class="k">class</span> <span class="nc">BatchSpeech2Text</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Like `Speech2Text()`, but takes a list of sound files or a directory name to search</span>
+<span class="sd">        for matching sound files, and returns a list of `(filename, response)` tuples.</span>
+<span class="sd">        `response`&#39;s are described in `Speech2Text.getResponse()`.</span>
+
+<span class="sd">        Can use up to 5 concurrent threads. Intended for</span>
+<span class="sd">        post-experiment processing of multiple files, in which waiting for a slow response</span>
+<span class="sd">        is not a problem (better to get the data).</span>
+
+<span class="sd">        If `files` is a string, it will be used as a directory name for glob</span>
+<span class="sd">        (matching all `*.wav`, `*.flac`, and `*.spx` files).</span>
+<span class="sd">        There&#39;s currently no re-try on http error.&quot;&quot;&quot;</span>
+        <span class="nb">list</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>  <span class="c1"># [ (file1, resp1), (file2, resp2), ...]</span>
+        <span class="n">maxThreads</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">threads</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># I get http errors with 6</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="mi">30</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">files</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;*.wav&#39;</span><span class="p">))</span>
+            <span class="n">f</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;*.flac&#39;</span><span class="p">))</span>
+            <span class="n">f</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;*.spx&#39;</span><span class="p">))</span>
+            <span class="n">fileList</span> <span class="o">=</span> <span class="n">f</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fileList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+        <span class="n">web</span><span class="o">.</span><span class="n">requireInternetAccess</span><span class="p">()</span>  <span class="c1"># needed to access google&#39;s speech API</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">filename</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fileList</span><span class="p">):</span>
+            <span class="n">gs</span> <span class="o">=</span> <span class="n">Speech2Text</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">filename</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">getThread</span><span class="p">()))</span>  <span class="c1"># tuple</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%i</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+            <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_activeCount</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">maxThreads</span><span class="p">:</span>
+                <span class="n">core</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># idle at max count</span>
+
+    <span class="k">def</span> <span class="nf">_activeCount</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># self is a list of (name, thread) tuples; count active threads</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span> <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">running</span> <span class="ow">and</span> <span class="n">t</span><span class="o">.</span><span class="n">elapsed</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">count</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_getFlacPath</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a path to flac binary. Log flac version (if flac was found).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">FLAC_PATH</span>
+    <span class="k">if</span> <span class="n">FLAC_PATH</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+            <span class="n">FLAC_PATH</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="k">elif</span> <span class="n">prefs</span><span class="o">.</span><span class="n">general</span><span class="p">[</span><span class="s1">&#39;flac&#39;</span><span class="p">]:</span>
+            <span class="n">FLAC_PATH</span> <span class="o">=</span> <span class="n">prefs</span><span class="o">.</span><span class="n">general</span><span class="p">[</span><span class="s1">&#39;flac&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">FLAC_PATH</span> <span class="o">=</span> <span class="s1">&#39;flac&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">version</span><span class="p">,</span> <span class="n">se</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">shellCall</span><span class="p">([</span><span class="n">FLAC_PATH</span><span class="p">,</span> <span class="s1">&#39;-v&#39;</span><span class="p">],</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">se</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">MicrophoneError</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;flac not installed (or wrong path in prefs); &quot;</span>
+                   <span class="s2">&quot;download from https://xiph.org/flac/download.html&quot;</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">MicrophoneError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Using &#39;</span> <span class="o">+</span> <span class="n">version</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">FLAC_PATH</span>
+
+
+<div class="viewcode-block" id="flac2wav">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.flac2wav">[docs]</a>
+<span class="k">def</span> <span class="nf">flac2wav</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Uncompress: convert .flac file (on disk) to .wav format (new file).</span>
+
+<span class="sd">    If `path` is a directory name, convert all .flac files in the directory.</span>
+
+<span class="sd">    `keep` to retain the original .flac file(s), default `True`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">flac_path</span> <span class="o">=</span> <span class="n">_getFlacPath</span><span class="p">()</span>
+    <span class="n">flac_files</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">pathToString</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.flac&#39;</span><span class="p">):</span>
+        <span class="n">flac_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="n">flac_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;*.flac&#39;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">flac_files</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;failed to find .flac file(s) from </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">wav_files</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">flacfile</span> <span class="ow">in</span> <span class="n">flac_files</span><span class="p">:</span>
+        <span class="n">wavname</span> <span class="o">=</span> <span class="n">flacfile</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;.flac&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.wav&#39;</span>
+        <span class="n">flac_cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">flac_path</span><span class="p">,</span> <span class="s2">&quot;-d&quot;</span><span class="p">,</span> <span class="s2">&quot;--totally-silent&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">wavname</span><span class="p">,</span> <span class="n">flacfile</span><span class="p">]</span>
+        <span class="n">_junk</span><span class="p">,</span> <span class="n">se</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">shellCall</span><span class="p">(</span><span class="n">flac_cmd</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">se</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">se</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">keep</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">flacfile</span><span class="p">)</span>
+        <span class="n">wav_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wavname</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">wav_files</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">wav_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">wav_files</span></div>
+
+
+
+<div class="viewcode-block" id="wav2flac">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.wav2flac">[docs]</a>
+<span class="k">def</span> <span class="nf">wav2flac</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Lossless compression: convert .wav file (on disk) to .flac format.</span>
+
+<span class="sd">    If `path` is a directory name, convert all .wav files in the directory.</span>
+
+<span class="sd">    `keep` to retain the original .wav file(s), default `True`.</span>
+
+<span class="sd">    `level` is compression level: 0 is fastest but larger,</span>
+<span class="sd">        8 is slightly smaller but much slower.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">flac_path</span> <span class="o">=</span> <span class="n">_getFlacPath</span><span class="p">()</span>
+    <span class="n">wav_files</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">pathToString</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.wav&#39;</span><span class="p">):</span>
+        <span class="n">wav_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="n">wav_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;*.wav&#39;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">wav_files</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;failed to find .wav file(s) from </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">flac_files</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">wavname</span> <span class="ow">in</span> <span class="n">wav_files</span><span class="p">:</span>
+        <span class="n">flacfile</span> <span class="o">=</span> <span class="n">wavname</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.wav&#39;</span><span class="p">,</span> <span class="s1">&#39;.flac&#39;</span><span class="p">)</span>
+        <span class="n">flac_cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">flac_path</span><span class="p">,</span> <span class="s2">&quot;-</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">level</span><span class="p">,</span> <span class="s2">&quot;-f&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;--totally-silent&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">flacfile</span><span class="p">,</span> <span class="n">wavname</span><span class="p">]</span>
+        <span class="n">_junk</span><span class="p">,</span> <span class="n">se</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">shellCall</span><span class="p">(</span><span class="n">flac_cmd</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">se</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">flacfile</span><span class="p">):</span>  <span class="c1"># just try again</span>
+            <span class="c1"># ~2% incidence when recording for 1s, 650+ trials</span>
+            <span class="c1"># never got two in a row; core.wait() does not help</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Failed to convert to .flac; trying again&#39;</span><span class="p">)</span>
+            <span class="n">_junk</span><span class="p">,</span> <span class="n">se</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">shellCall</span><span class="p">(</span><span class="n">flac_cmd</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">se</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">se</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">keep</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">wavname</span><span class="p">)</span>
+        <span class="n">flac_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flacfile</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">wav_files</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">flac_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">flac_files</span></div>
+
+
+
+<div class="viewcode-block" id="switchOn">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.switchOn">[docs]</a>
+<span class="k">def</span> <span class="nf">switchOn</span><span class="p">(</span><span class="n">sampleRate</span><span class="o">=</span><span class="mi">48000</span><span class="p">,</span> <span class="n">outputDevice</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bufferSize</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;You need to switch on the microphone before use, which can take</span>
+<span class="sd">    several seconds. The only time you can specify the sample rate (in Hz)</span>
+<span class="sd">    is during switchOn().</span>
+
+<span class="sd">    Considerations on the default sample rate 48kHz::</span>
+
+<span class="sd">        DVD or video = 48,000</span>
+<span class="sd">        CD-quality   = 44,100 / 24 bit</span>
+<span class="sd">        human hearing: ~15,000 (adult); children &amp; young adult higher</span>
+<span class="sd">        human speech: 100-8,000 (useful for telephone: 100-3,300)</span>
+<span class="sd">        Google speech API: 16,000 or 8,000 only</span>
+<span class="sd">        Nyquist frequency: twice the highest rate, good to oversample a bit</span>
+
+<span class="sd">    pyo&#39;s downsamp() function can reduce 48,000 to 16,000 in about 0.02s</span>
+<span class="sd">    (uses integer steps sizes). So recording at 48kHz will generate</span>
+<span class="sd">    high-quality archival data, and permit easy downsampling.</span>
+
+<span class="sd">    outputDevice, bufferSize: set these parameters on the pyoSndServer</span>
+<span class="sd">        before booting; None means use pyo&#39;s default values</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># imports pyo, creates sound.pyoSndServer using sound.initPyo() if not yet</span>
+    <span class="c1"># created</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">prefs</span><span class="o">.</span><span class="n">hardware</span><span class="p">[</span><span class="s1">&#39;audioLib&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;pyo&#39;</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Starting Microphone but sound lib preference is set to be </span><span class="si">{}</span><span class="s2">. &quot;</span>
+                        <span class="s2">&quot;Clashes might occur since &#39;pyo&#39; is not &quot;</span>
+                        <span class="s2">&quot;preferred lib but is needed for Microphone&quot;</span>
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefs</span><span class="o">.</span><span class="n">hardware</span><span class="p">[</span><span class="s1">&#39;audioLib&#39;</span><span class="p">]))</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">global</span> <span class="n">pyo</span>
+        <span class="kn">import</span> <span class="nn">pyo</span>
+        <span class="k">global</span> <span class="n">haveMic</span>
+        <span class="n">haveMic</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Microphone class not available, needs pyo; &#39;</span>
+               <span class="s1">&#39;see http://ajaxsoundstudio.com/software/pyo/&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pyo</span><span class="o">.</span><span class="n">serverCreated</span><span class="p">():</span>
+        <span class="n">backend_pyo</span><span class="o">.</span><span class="n">pyoSndServer</span><span class="o">.</span><span class="n">setSamplingRate</span><span class="p">(</span><span class="n">sampleRate</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># backend_pyo.init() will create pyoSndServer. We want there only</span>
+        <span class="c1"># ever to be one server</span>
+        <span class="c1"># will automatically use duplex=1 and stereo if poss</span>
+        <span class="n">backend_pyo</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="n">sampleRate</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">outputDevice</span><span class="p">:</span>
+        <span class="n">backend_pyo</span><span class="o">.</span><span class="n">pyoSndServer</span><span class="o">.</span><span class="n">setOutputDevice</span><span class="p">(</span><span class="n">outputDevice</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">bufferSize</span><span class="p">:</span>
+        <span class="n">backend_pyo</span><span class="o">.</span><span class="n">pyoSndServer</span><span class="o">.</span><span class="n">setBufferSize</span><span class="p">(</span><span class="n">bufferSize</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: switch on (</span><span class="si">%d</span><span class="s1">hz) took </span><span class="si">%.3f</span><span class="s1">s&#39;</span> <span class="o">%</span>
+                <span class="p">(</span><span class="vm">__file__</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">),</span> <span class="n">sampleRate</span><span class="p">,</span> <span class="n">core</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="switchOff">
+<a class="viewcode-back" href="../../../coder/microphone/#psychopy_legacy_mic.microphone.switchOff">[docs]</a>
+<span class="k">def</span> <span class="nf">switchOff</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;(Not needed as of v1.76.00; kept for backwards compatibility only.)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;deprecated:  microphone.switchOff() is no longer needed.&quot;</span><span class="p">)</span></div>
+
+</pre></div>
+
+      <br/><a href="#" class="pull-right">Back to top</a>
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <span class="pull-right">
+      
+        
+      <br/>
+
+          &copy; 2002-2018 <a href="https://www.peirce.org.uk/">Jonathan Peirce</a><br/>
+          &copy; 2019 <a href="https://opensciencetools.org/">Open Science Tools Ltd.</a><br/><br/>
+        PsychoPy<sup>®</sup> and Pavlovia<sup>®</sup> are registered trademarks of Open Science Tools Ltd.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.3.7.<br/><br/>
+    </span>
+
+    <a href="http://www.nottingham.ac.uk/"><img src="../../../_static/Nottingham Supported.png", alt="Uni of Nottingham" width=250></a>
+  </div>
+
+</footer>
+  </body>
+</html>
