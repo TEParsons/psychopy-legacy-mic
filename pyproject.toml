@@ -34,5 +34,21 @@ dependencies = [
   "psychopy-pyo",
 ]
 
+[project.optional-dependencies]
+# dependencies for building the docs
+docs = [
+  "psychopy",
+  "sphinx",
+  "furo",
+]
+# dependencies for running the test suite
+tests = [
+  "psychopy @ git+https://github.com/psychopy/psychopy@release",
+  "pytest",
+]
+
+[project.entry-points."psychopy"]
+microphone = "psychopy_legacy_mic.microphone:AudioCapture"
+
 [tool.setuptools.packages.find]
 where = ["",]
